@@ -1,6 +1,7 @@
 package com.luseen.autolinklibrary;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 
@@ -14,11 +15,13 @@ abstract class TouchableSpan extends ClickableSpan {
     private int normalTextColor;
     private int pressedTextColor;
     private boolean isUnderLineEnabled;
+    private Typeface typeface;
 
-    TouchableSpan(int normalTextColor, int pressedTextColor, boolean isUnderLineEnabled) {
+    TouchableSpan(int normalTextColor, int pressedTextColor, boolean isUnderLineEnabled, Typeface typeface) {
         this.normalTextColor = normalTextColor;
         this.pressedTextColor = pressedTextColor;
         this.isUnderLineEnabled = isUnderLineEnabled;
+        this.typeface = typeface;
     }
 
     void setPressed(boolean isSelected) {
@@ -32,5 +35,8 @@ abstract class TouchableSpan extends ClickableSpan {
         textPaint.setColor(textColor);
         textPaint.bgColor = Color.TRANSPARENT;
         textPaint.setUnderlineText(isUnderLineEnabled);
+        if (typeface != null) {
+            textPaint.setTypeface(typeface);
+        }
     }
 }

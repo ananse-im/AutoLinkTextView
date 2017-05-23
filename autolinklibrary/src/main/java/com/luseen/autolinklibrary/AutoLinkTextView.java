@@ -2,6 +2,7 @@ package com.luseen.autolinklibrary;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -42,12 +43,18 @@ public class AutoLinkTextView extends TextView {
     private int customModeColor = DEFAULT_COLOR;
     private int defaultSelectedColor = Color.LTGRAY;
 
+    private Context mContext;
+
     public AutoLinkTextView(Context context) {
         super(context);
+
+        mContext = context;
     }
 
     public AutoLinkTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        mContext = context;
     }
 
     @Override
@@ -70,7 +77,8 @@ public class AutoLinkTextView extends TextView {
         for (final AutoLinkItem autoLinkItem : autoLinkItems) {
             int currentColor = getColorByMode(autoLinkItem.getAutoLinkMode());
 
-            TouchableSpan clickableSpan = new TouchableSpan(currentColor, defaultSelectedColor, isUnderLineEnabled) {
+            Typeface typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/Roboto-Bold.ttf");
+            TouchableSpan clickableSpan = new TouchableSpan(currentColor, defaultSelectedColor, isUnderLineEnabled, typeface) {
                 @Override
                 public void onClick(View widget) {
                     if (autoLinkOnClickListener != null)
